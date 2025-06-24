@@ -1,24 +1,31 @@
+import { Link } from "react-router-dom";
+
 export default function Home() {
   return (
     <div className="p-6">
       {/* Hero Section */}
-      <section className="p-10  bg-[#483DFF]  mb-12 ">
+      <section className="p-10 bg-[#483DFF] mb-12">
         <div className="max-w-5xl mx-auto text-center space-y-6">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white drop-shadow-md">
-            Aplikasi{" "}
-            <span className="text-[#D4FF00]">Trading</span> dan{" "}
+            Aplikasi <span className="text-[#D4FF00]">Trading</span> dan{" "}
             <span className="text-[#D4FF00]">Investasi</span> Beragam Aset
           </h1>
           <h5 className="text-lg sm:text-xl text-white/90">
             Jual, Beli, dan Trading Saham AS, Aset Kripto, Emas, dan Reksa Dana
           </h5>
-          <div className="mt-6">
+          <div className="mt-6 space-x-4">
             <a
               href="/trade"
               className="inline-block px-6 py-3 border border-white text-white rounded-md font-medium hover:bg-white hover:text-[#1B1B1B] transition"
             >
               Go To FinMate Trade
             </a>
+            <Link
+              to="/faq"
+              className="inline-block px-6 py-3 border border-yellow-300 text-yellow-300 rounded-md font-medium hover:bg-yellow-300 hover:text-[#1B1B1B] transition"
+            >
+              Lihat FAQ
+            </Link>
           </div>
         </div>
       </section>
