@@ -1,43 +1,70 @@
-// src/pages/auth/register.jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 export default function Register() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert('Register form submitted!');
+    // Logika registrasi Anda di sini
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-xl">
-        <h2 className="text-2xl font-bold text-center mb-6 text-[#D4FF00]">Buat Akun FinMate</h2>
-        <form className="space-y-5">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-3xl font-poppins-extrabold text-center text-gray-800 mb-6">Register</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Nama Lengkap</label>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4FF00]"
+              id="name"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-hijau focus:border-hijau sm:text-sm"
+              placeholder="John Doe"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
             <input
               type="email"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4FF00]"
+              id="email"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-hijau focus:border-hijau sm:text-sm"
+              placeholder="you@example.com"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#D4FF00]"
+              id="password"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-hijau focus:border-hijau sm:text-sm"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-hijau focus:border-hijau sm:text-sm"
+              placeholder="••••••••"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-[#D4FF00] text-black py-2 rounded-md hover:bg-lime-400 transition"
+            className="w-full bg-hijau text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-hijau"
           >
-            Daftar
+            Register
           </button>
         </form>
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Sudah punya akun? <a href="/login" className="text-[#483DFF] hover:underline">Login sekarang</a>
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Already have an account?{' '}
+          <Link to="/login" className="font-medium text-hijau hover:text-green-700">
+            Login
+          </Link>
         </p>
       </div>
     </div>

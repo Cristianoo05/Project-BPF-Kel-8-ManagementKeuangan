@@ -1,42 +1,65 @@
-// src/components/Sidebar.jsx
-import ListMenu from "./ListMenu";
+import {
+  FiHome,
+  FiUser,
+  FiSettings,
+  FiMessageCircle,
+  FiHelpCircle,
+  FiPlus,
+} from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
-    return (
-        // Mengganti w-90 dengan w-64 yang valid di Tailwind CSS
-        // Mengganti p-10 dengan px-4 py-8 untuk padding yang lebih umum di sidebar
-        // Memastikan background putih (bg-white) dan tinggi minimal layar (min-h-screen)
-        <div id="sidebar" className="flex min-h-screen w-64 flex-col bg-white px-4 py-8 shadow-lg">
-            {/* Logo */}
-            <div id="sidebar-logo" className="flex flex-col">
-                {/* Mengubah text-gray-90 menjadi text-gray-900 karena 90 bukan skala standar */}
-                <span id="logo-title" className="font-poppins-extrabold text-[48px] text-gray-900">
-                    Sedap <b id="logo-dot" className="text-hijau">.</b>
-                </span>
-                <span id="logo-subtitle" className="font-semibold text-gray-400">Modern Admin Dashboard</span>
-            </div>
-
-            {/* ListMenu */}
-            {/* Jika ListMenu memiliki margin-top yang besar, Anda mungkin ingin menghapusnya
-                dari ListMenu.jsx untuk menghindari jarak ganda di bawah subtitle.
-                Misalnya, jika ListMenu.jsx punya className="mt-10", Anda bisa menghapusnya. */}
-            <ListMenu/>
-
-            {/* Footer */}
-            <div id="sidebar-footer" className="mt-auto">
-                <div id="footer-card" className="bg-hijau px-4 py-2 rounded-md shadow-lg mb-10 flex items-center">
-                    <div id="footer-text" className="text-white text-sm">
-                        <span>Please organize your menus through button below!</span>
-                        <div id="add-menu-button" className="flex justify-center items-center p-2 mt-3 bg-white rounded-md space-x-2">
-                            <span className="text-gray-600 flex items-center">Add Menus</span>
-                        </div>
-                    </div>
-                    {/* Disarankan menambahkan alt text untuk gambar */}
-                    <img id="footer-avatar" className="w-20 rounded-full" src="https://avatar.iran.liara.run/public/28" alt="User Avatar" />
-                </div>
-                <span id="footer-brand" className="font-bold text-gray-400">Sedap Restaurant Admin Dashboard</span>
-                <p id="footer-copyright" className="font-light text-gray-400">&copy; 2025 All Right Reserved</p>
-            </div>
+  return (
+    <aside className="flex flex-col w-72 min-h-screen bg-gradient-to-b from-[#B2D600] to-[#4A6000] shadow-2xl text-white">
+      
+      {/* Logo minimal kiri atas */}
+      <div className="flex items-center gap-2 px-6 pt-6 pb-4">
+        <div className="w-10 h-10 bg-[#483DFF] rounded-full flex items-center justify-center text-xl font-bold">
+          F
         </div>
-    );
-}   
+        <h1 className="text-lg font-extrabold text-white tracking-wide">FinMate</h1>
+      </div>
+
+      {/* Navigasi utama */}
+      <nav className="flex-1 px-4 py-6 space-y-1">
+        <SidebarItem icon={<FiHome />} label="Dashboard" to="/admin" />
+        <SidebarItem icon={<FiUser />} label="User Management" to="/users" />
+        <SidebarItem icon={<FiSettings />} label="Profile Setting" to="/profile" />
+        <SidebarItem icon={<FiMessageCircle />} label="Contact" to="/contact" />
+        <SidebarItem icon={<FiHelpCircle />} label="FAQ" to="/faq" />
+      </nav>
+
+      {/* Tombol Add Menu */}
+      <div className="px-6 py-4">
+        <button className="w-full flex items-center justify-center gap-2 bg-[#D4FF00] text-black font-semibold px-4 py-2 rounded-lg hover:bg-white transition">
+          <FiPlus /> Add Menu
+        </button>
+      </div>
+
+      {/* Footer mini */}
+      <footer className="text-center text-sm text-white/60 pb-4">
+        <p>FinMate Admin</p>
+        <p className="text-xs">&copy; 2025 All Rights Reserved</p>
+      </footer>
+    </aside>
+  );
+}
+
+function SidebarItem({ icon, label, to }) {
+  return (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200
+        ${
+          isActive
+            ? "bg-[#483DFF] text-white"
+            : "text-white/80 hover:bg-white/20 hover:text-white"
+        }`
+      }
+    >
+      <span className="text-xl">{icon}</span>
+      <span className="text-sm font-medium">{label}</span>
+    </NavLink>
+  );
+}

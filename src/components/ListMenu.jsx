@@ -1,4 +1,7 @@
 import { BsFillPeopleFill } from "react-icons/bs";
+import { BsQuestionCircle } from "react-icons/bs";
+import { BsGearFill } from "react-icons/bs";
+
 import { IoMdList } from "react-icons/io";
 import { MdDashboard, MdFastfood} from "react-icons/md";
 // import { Link } from "react-router-dom";
@@ -7,8 +10,8 @@ export default function ListMenu() {
     const menuClass = ({ isActive }) =>
         `flex cursor-pointer items-center rounded-xl p-4  space-x-2
         ${isActive ? 
-            "text-hijau bg-green-200 font-extrabold" : 
-            "text-gray-600 hover:text-hijau hover:bg-green-200 hover:font-extrabold"
+            "text-purple bg-puple-200 font-extrabold" : 
+            "text-gray-600 hover:text-purple hover:bg-purple-200 hover:font-extrabold"
         }`
   return (
     <div id="sidebar-menu" className="mt-10">
@@ -16,7 +19,7 @@ export default function ListMenu() {
         <li>
           <NavLink
             id="menu-1"
-            to="/"
+            to="/admin"
             className={menuClass}
           >
             <MdDashboard className="mr-4 text-xl" />
@@ -26,21 +29,31 @@ export default function ListMenu() {
         <li>
           <NavLink
             id="menu-2"
-            to="/orders"
+            to="/profile"
             className={menuClass}
           >
-            <IoMdList className="mr-4 text-xl" />
-            Orders
+            <BsGearFill className="mr-4 text-xl" />
+            Profile
           </NavLink>
         </li>
         <li>
           <NavLink
             id="menu-3"
-            to="/customers"
+            to="/users"
             className={menuClass}
           >
             <BsFillPeopleFill className="mr-4 text-xl" />
-            Customers
+            User
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            id="menu-4"
+            to="/faq"
+            className={menuClass}
+          >
+            <BsQuestionCircle className="mr-4 text-xl" />
+            FAQ
           </NavLink>
         </li>
       </ul>

@@ -1,8 +1,16 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom';
+// import {
+//   BrowserRouter as Router,
+//   Routes,
+//   Route,
+// } from 'react-router-dom';
+import "./assets/tailwind.css";
+import React, { Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import Loading from "./components/Loading";
+
+import MainLayout from './layouts/MainLayout.jsx';
+import Dashboard from './pages/admin/Dashboard.jsx';
+import User from './pages/admin/User.jsx';
 
 import GuestLayout from './layouts/GuestLayouts.jsx';
 import Home from './pages/guest/home';
@@ -18,12 +26,20 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+ 
       <Routes>
+
+         <Route element={<MainLayout/>}>
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/profile" element={<Dashboard />} />
+          <Route path="/users" element={<User />} />
+          <Route path="/faq" element={<Dashboard />} />
+          </Route>
+        
 
         {/* Guest Pages with layout */}
         <Route element={<GuestLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/guest" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
@@ -32,9 +48,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        
 
       </Routes>
-    </Router>
+ 
   );
 }
 
