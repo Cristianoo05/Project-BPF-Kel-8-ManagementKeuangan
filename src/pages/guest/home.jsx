@@ -88,7 +88,7 @@ export default function Home() {
           </div>
           <div className="bg-[#F9F9F9] rounded-lg p-4 shadow-sm text-center">
             <img
-              src="/images/founders/dewi.jpg"
+              src="/images/cristiano.jpg"
               alt="Cristiano"
               className="w-32 h-32 mx-auto rounded-full object-cover mb-4"
             />
@@ -101,7 +101,7 @@ export default function Home() {
           </div>
           <div className="bg-[#F9F9F9] rounded-lg p-4 shadow-sm text-center">
             <img
-              src="/images/founders/jonathan.jpg"
+              src="/images/Tasya1.JPG"
               alt="Tasya Berliana"
               className="w-32 h-32 mx-auto rounded-full object-cover mb-4"
             />
