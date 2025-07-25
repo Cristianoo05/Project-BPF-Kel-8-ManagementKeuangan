@@ -1,138 +1,118 @@
-import { BsFillExclamationDiamondFill } from "react-icons/bs";
-import { ImSpinner2 } from "react-icons/im";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '../../services/SupabaseClient'; // Import Supabase client Anda
 
 export default function Login() {
-  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [dataForm, setDataForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setDataForm({
-      ...dataForm,
-      [name]: value,
+  const handleLogin = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError('');
+
+  try {
+    // 1. Proses login seperti biasa
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
     });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (authError) throw authError;
 
-    setLoading(true);
-    setError(false);
+    // 2. Jika login berhasil, ambil ID pengguna
+    const user = authData.user;
+    if (!user) throw new Error("User not found after login.");
 
-    axios
-      .post("https://dummyjson.com/user/login", {
-        username: dataForm.email,
-        password: dataForm.password,
-      })
-      .then((response) => {
-        // Jika status bukan 200, tampilkan pesan error
-        if (response.status !== 200) {
-          setError(response.data.message);
-          return;
-        }
+    // 3. Ambil data 'role' dari tabel 'profiles' menggunakan ID pengguna
+    const { data: profileData, error: profileError } = await supabase
+      .from('profiles') // Pastikan nama tabelnya 'profiles'
+      .select('role')
+      .eq('id', user.id) // Cari profil dengan id yang cocok
+      .single(); // Ambil satu baris data
 
-        // Redirect ke dashboard jika login sukses
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response) {
-          setError(err.response.data.message || "An error occurred");
-        } else {
-          setError(err.message || "An unknown error occurred");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-  /* error & loading status */
-  const errorInfo = error ? (
-    <div className="bg-red-200 mb-5 p-5 text-sm font-light text-gray-600 rounded flex items-center">
-      <BsFillExclamationDiamondFill className="text-red-600 me-2 text-lg" />
-      {error}
-    </div>
-  ) : null;
+    if (profileError) throw profileError;
 
-  const loadingInfo = loading ? (
-    <div className="bg-gray-200 mb-5 p-5 text-sm rounded flex items-center">
-      <ImSpinner2 className="me-2 animate-spin" />
-      Mohon Tunggu...
-    </div>
-  ) : null;
+    // 4. Arahkan berdasarkan role
+    if (profileData.role === 'admin') {
+      navigate('/dashboard'); // Admin ke halaman manajemen pengguna
+    } else {
+      navigate('/'); // Pengguna biasa ke halaman utama
+    }
 
+  } catch (err) {
+    setError(err.message);
+    console.error('Login error:', err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
-    <div id="login">
-      <h2 className="text-2xl font-semibold text-gray-700 mb-6 text-center">
-        Welcome Back 👋
-      </h2>
-      {errorInfo}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      {/* Container kartu putih utama */}
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
 
-      {loadingInfo}
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-5">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email Address
-          </label>
-          <input
-            type="text"
-            id="email"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
-            placeholder="you@example.com"
-            name="email"
-            onChange={handleChange}
-          />
+        {/* --- Bagian Logo "Sedap." di dalam kartu putih --- */}
+        <div className="text-center mb-8"> {/* mb-8 untuk jarak antara logo dan judul Login */}
+            {/* <h1 className="font-poppins-extrabold text-[48px] text-gray-900">
+                Sedap <b className="text-Biruneon">.</b>
+            </h1> */}
+            {/* Opsional: Jika ingin ada subtitle seperti di sidebar */}
+            {/* <p className="text-sm text-gray-500 mt-1">Modern Admin Dashboard</p> */}
         </div>
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
-            placeholder="********"
-            onChange={handleChange}
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4
-                        rounded-lg transition duration-300"
-        >
-          Login
-        </button>
-        <div className="flex gap-6 mt-4 text-sm font-medium">
-  <Link
-    to="/register"
-    className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-  >
-    Belum punya akun? <span className="underline">Daftar di sini</span>
-  </Link>
-  <Link
-    to="/forgot"
-    className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-  >
-    Lupa password? <span className="underline">Reset sekarang</span>
-  </Link>
-</div>
+        {/* -------------------------------------------------- */}
 
-
-        
-      </form>
+        <h2 className="text-3xl font-poppins-extrabold text-center text-gray-800 mb-6">Login</h2>
+        {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-Biruneon focus:border-Biruneon sm:text-sm"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-Biruneon focus:border-Biruneon sm:text-sm"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <Link to="/forgot-password" className="font-medium text-Biruneon hover:text-Biruneon-700">
+              Forgot Password?
+            </Link>
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-Biruneon text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-Biruneon disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Don't have an account?{' '}
+          <Link to="/register" className="font-medium text-Biruneon hover:text-Biruneon-700">
+            Register
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

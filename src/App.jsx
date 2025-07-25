@@ -3,7 +3,7 @@ import "./assets/tailwind.css";
 import { Routes, Route } from "react-router-dom";
 import React from "react";
 import Loading from "./components/Loading";
-import { Suspense } from "react";
+import { Suspense } from "react"; 
 // import ErrorLayout from "./layouts/ErrorLayout";
 // import UserList from "./pages/UserList";
 // import NavigationBar from "./components/NavigationBar";
@@ -11,7 +11,7 @@ import { Suspense } from "react";
 
   
 
-const Dashboard = React.lazy(() => import("./pages/Dashboard"))
+const Dashboard = React.lazy(() => import("./pages/admin/Dashboard"))
 // const Customers = React.lazy(() => import("./pages/Customer"))
 // const Orders = React.lazy(() => import("./pages/Order"))
 // const NotFound = React.lazy(() => import("./pages/NotFound"))
@@ -22,6 +22,10 @@ const Forgot = React.lazy(() => import("./pages/Auth/Forgot"))
 const MainLayout = React.lazy(() => import("./layouts/MainLayout"))
 const GuestLayout = React.lazy(() => import("./layouts/GuestLayout"))
 const AuthLayout = React.lazy(() => import("./layouts/AuthLayout"))
+const UpdatePassword = React.lazy(() => import("./pages/Auth/UpdatePassword"))
+const CompanyProfile = React.lazy(() => import('./pages/CompanyProfile'));
+const User = React.lazy(() => import('./pages/Admin/User'));
+const Profile = React.lazy(() => import('./pages/Admin/Profile'));
 // const Products = React.lazy(() => import("./pages/Products"))
 // const ProductDetail = React.lazy(() => import("./pages/ProductDetail"))
 // const ProductCheckter = React.lazy(() => import("./pages/ProdukChecker"));
@@ -31,7 +35,12 @@ function App() {
 <Suspense fallback={<Loading/>}>
         <Routes>
           <Route element={<MainLayout/>}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/company-profile" element={<CompanyProfile />} />
+          <Route path="/users" element={<User />} />
+          <Route path="/admin" element={<Dashboard  />} />
+          <Route path="/admin/Profile" element={<Profile />} />
+          
           {/* <Route path="/orders" element={<Orders />} /> */}
           {/* <Route path="/customers" element={<Customers />} /> */}
           {/* <Route path="/user" element={<UserList />} />  */}
@@ -45,9 +54,10 @@ function App() {
           </Route>
 
           <Route element={<AuthLayout/>}>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/forgot" element={<Forgot/>} />
+            <Route path="/update-password" element={<UpdatePassword/>} />
           </Route>
 
           {/* <Route element={<GuestLayout/>}>
