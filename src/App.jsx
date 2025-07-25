@@ -13,6 +13,7 @@ import Home from './pages/guest/home';
 import About from './pages/guest/about';
 import Contact from './pages/guest/contact';
 import FAQ from './pages/guest/faq';
+import FounderPage from './pages/guest/founder.jsx'; 
 
 // Admin Pages
 import FAQManager from './pages/admin/faqManager.jsx';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/founder" element={<FounderPage />} />
         </Route>
 
         {/* Admin Pages with layout */}
@@ -42,7 +44,7 @@ function App() {
           <Route path="faq" element={<FAQManager />} />
         </Route>
 
-        {/* Auth Pages (tanpa layout) */}
+        {/* Auth Pages */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

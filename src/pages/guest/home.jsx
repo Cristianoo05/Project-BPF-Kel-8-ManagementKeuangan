@@ -15,7 +15,7 @@ export default function Home() {
           </h5>
           <div className="mt-6 space-x-4">
             <a
-              href="/trade"
+              href="/register"
               className="inline-block px-6 py-3 border border-white text-white rounded-md font-medium hover:bg-white hover:text-[#1B1B1B] transition"
             >
               Go To FinMate Trade
@@ -60,6 +60,56 @@ export default function Home() {
             <p className="text-gray-700">
               Akses artikel dan tips pengelolaan uang yang cocok untuk
               mahasiswa.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Biografi Founder (FAQ Icon Bio Section) */}
+      {/* Biografi Founder (FAQ Icon Bio Section) */}
+      <section className="bg-white rounded-lg shadow-md p-8 mb-12 border border-gray-200">
+        <h2 className="text-5xl font-bold text-[#483DFF] mb-4 text-center">
+          Our Founders
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-[#F9F9F9] rounded-lg p-4 shadow-sm text-center">
+            <img
+              src="/public/images/john1.jpg"
+              alt="Daniel John Tomsanit"
+              className="w-32 h-32 mx-auto rounded-full object-cover mb-4"
+            />
+            <h3 className="text-lg font-semibold text-[#1B1B1B]">
+              Daniel John Tomsanit
+            </h3>
+            <p className="text-sm text-gray-600 mt-2">
+              CEO & Visionary. Seorang pemimpin dengan visi membangun masa depan finansial yang inklusif dan cerdas.
+            </p>
+          </div>
+          <div className="bg-[#F9F9F9] rounded-lg p-4 shadow-sm text-center">
+            <img
+              src="/images/founders/dewi.jpg"
+              alt="Cristiano"
+              className="w-32 h-32 mx-auto rounded-full object-cover mb-4"
+            />
+            <h3 className="text-lg font-semibold text-[#1B1B1B]">
+              Cristiano
+            </h3>
+            <p className="text-sm text-gray-600 mt-2">
+              CTO & Developer. Ahli teknologi yang membangun solusi manajemen keuangan berbasis AI dan data.
+            </p>
+          </div>
+          <div className="bg-[#F9F9F9] rounded-lg p-4 shadow-sm text-center">
+            <img
+              src="/images/founders/jonathan.jpg"
+              alt="Tasya Berliana"
+              className="w-32 h-32 mx-auto rounded-full object-cover mb-4"
+            />
+            <h3 className="text-lg font-semibold text-[#1B1B1B]">
+              Tasya Berliana
+            </h3>
+            <p className="text-sm text-gray-600 mt-2">
+              CMO & Designer. Menggabungkan estetika dengan fungsi dalam membangun branding dan pengalaman pengguna.
             </p>
           </div>
         </div>
